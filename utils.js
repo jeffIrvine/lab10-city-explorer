@@ -15,7 +15,7 @@ function mungedWeather(location) {
   }).slice(0, 8);
 }
 function mungedTrails(location) {
-  return location.data.map(item => {
+  return location.trails.map(item => {
     return {
       'name': item.name,
       'location': item.location,
