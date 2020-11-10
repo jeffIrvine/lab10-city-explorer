@@ -6,6 +6,15 @@ function mungedLocation(location) {
   };
 }
 
+function mungedWeather(location) {
+  location.data.map(item => {
+    return {
+      forecast: item.weather.description,
+      time: item.datetime,
+    };
+  }).slice(0, 8);
+}
+
 module.exports = {
-  mungedLocation
+  mungedLocation, mungedWeather
 };
