@@ -17,21 +17,33 @@ function mungedWeather(location) {
 function mungedTrails(location) {
   return location.trails.map(item => {
     return {
-      'name': item.name,
-      'location': item.location,
-      'length': item.length,
-      'stars': item.stars,
-      'star_votes': item.star_votes,
-      'summary': item.summary,
-      'trail_url': item.trail_url,
-      'conditions': item.conditionsStatus,
-      'condition_date': item.conditionDate.split(' ')[0],
-      'condition_time': item.conditionDate.split(' ')[1]
+      name: item.name,
+      location: item.location,
+      length: item.length,
+      stars: item.stars,
+      star_votes: item.star_votes,
+      summary: item.summary,
+      trail_url: item.trail_url,
+      conditions: item.conditionsStatus,
+      condition_date: item.conditionDate.split(' ')[0],
+      condition_time: item.conditionDate.split(' ')[1]
     };
   }).slice(0, 10);
 }
 
+function mungedReviews(location) {
+  return location.businesses.map(item => {
+    return {
+      name: item.name,
+      image_url: item.image_url,
+      price: item.price,
+      rating: item.rating,
+      url: item.url
+    };
+  }).slice(0, 20);
+}
+
 
 module.exports = {
-  mungedLocation, mungedWeather, mungedTrails
+  mungedLocation, mungedWeather, mungedTrails, mungedReviews
 };
