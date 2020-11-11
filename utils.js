@@ -21,10 +21,10 @@ function mungedTrails(location) {
       location: item.location,
       length: item.length,
       stars: item.stars,
-      star_votes: item.star_votes,
+      star_votes: item.starVotes,
       summary: item.summary,
-      trail_url: item.trail_url,
-      conditions: item.conditionsStatus,
+      trail_url: item.url,
+      condition: item.conditionStatus,
       condition_date: item.conditionDate.split(' ')[0],
       condition_time: item.conditionDate.split(' ')[1]
     };

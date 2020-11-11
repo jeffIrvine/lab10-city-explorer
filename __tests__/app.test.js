@@ -1,4 +1,6 @@
-const { mungedLocation, mungedWeather } = require('../utils');
+const { mungedLocation, mungedWeather, mungedTrails, mungedReviews } = require('../utils');
+const trails = require('../data/trails.json');
+const rawYelpData = require('../data/reviews.json');
 require('dotenv').config();
 
 describe('app routes', () => {
@@ -792,6 +794,281 @@ describe('app routes', () => {
       ];
 
       const result = mungedWeather(hardWeatherData);
+      expect(result).toEqual(expectation);
+    });
+
+    test('returns munged trails', async() => {
+      const expectation = [
+        {
+          'condition': 'All Clear',
+          'condition_date': '2020-09-16',
+          'condition_time': '14:37:11',
+          'length': 17.3,
+          'location': 'Superior, Colorado',
+          'name': 'Boulder Skyline Traverse',
+          'star_votes': 93,
+          'stars': 4.7,
+          'summary': 'The classic long mountain route in Boulder.',
+          'trail_url': 'https://www.hikingproject.com/trail/7011192/boulder-skyline-traverse',
+        },
+        {
+          'condition': 'All Clear',
+          'condition_date': '2020-10-22',
+          'condition_time': '13:00:06',
+          'length': 5.7,
+          'location': 'Boulder, Colorado',
+          'name': 'Bear Peak Out and Back',
+          'star_votes': 122,
+          'stars': 4.6,
+          'summary': 'A must-do hike for Boulder locals and visitors alike!',
+          'trail_url': 'https://www.hikingproject.com/trail/7000130/bear-peak-out-and-back',
+        },
+        {
+          'condition': 'All Clear',
+          'condition_date': '2020-10-19',
+          'condition_time': '15:37:52',
+          'length': 5.3,
+          'location': 'Boulder, Colorado',
+          'name': 'Sunshine Lion\'s Lair Loop',
+          'star_votes': 119,
+          'stars': 4.5,
+          'summary': 'Great Mount Sanitas views are the reward for this gentler loop in Sunshine Canyon.',
+          'trail_url': 'https://www.hikingproject.com/trail/7004226/sunshine-lions-lair-loop',
+        },
+        {
+          'condition': 'Minor Issues',
+          'condition_date': '2020-11-03',
+          'condition_time': '16:01:11',
+          'length': 4.9,
+          'location': 'Boulder, Colorado',
+          'name': 'Green Mountain via Ranger/Saddle Rock Loop',
+          'star_votes': 89,
+          'stars': 4.5,
+          'summary': 'A loop with a variety of terrain, a lot of climbing, and great views of Boulder.',
+          'trail_url': 'https://www.hikingproject.com/trail/7011191/green-mountain-via-rangersaddle-rock-loop',
+        },
+        {
+          'condition': 'All Clear',
+          'condition_date': '2020-10-12',
+          'condition_time': '13:48:51',
+          'length': 7.6,
+          'location': 'Coal Creek, Colorado',
+          'name': 'Walker Ranch',
+          'star_votes': 139,
+          'stars': 4.5,
+          'summary': 'An awesome and challenging hike near Boulder with great scenery.',
+          'trail_url': 'https://www.hikingproject.com/trail/7002439/walker-ranch',
+        },
+        {
+          'condition': 'All Clear',
+          'condition_date': '2020-10-18',
+          'condition_time': '17:03:19',
+          'length': 3.3,
+          'location': 'Boulder, Colorado',
+          'name': 'Royal Arch Out and Back',
+          'star_votes': 158,
+          'stars': 4.4,
+          'summary': 'A classic Boulder hike to a natural arch with great views.',
+          'trail_url': 'https://www.hikingproject.com/trail/7004682/royal-arch-out-and-back',
+        },
+        {
+          'condition': 'All Clear',
+          'condition_date': '2020-10-14',
+          'condition_time': '19:04:37',
+          'length': 3.2,
+          'location': 'Boulder, Colorado',
+          'name': 'Mount Sanitas Loop',
+          'star_votes': 110,
+          'stars': 4.1,
+          'summary': 'Very popular and scenic loop right from the edge of town.',
+          'trail_url': 'https://www.hikingproject.com/trail/7000000/mount-sanitas-loop',
+        },
+        {
+          'condition': 'All Clear',
+          'condition_date': '2020-10-17',
+          'condition_time': '19:04:26',
+          'length': 6.7,
+          'location': 'Boulder, Colorado',
+          'name': 'Betasso Preserve',
+          'star_votes': 75,
+          'stars': 4.2,
+          'summary': 'This hike is easily accessible from Boulder and offers amazing singletrack with beautiful views.',
+          'trail_url': 'https://www.hikingproject.com/trail/7001019/betasso-preserve',
+        },
+        {
+          'condition': 'All Clear',
+          'condition_date': '2020-09-19',
+          'condition_time': '19:29:09',
+          'length': 3.9,
+          'location': 'Boulder, Colorado',
+          'name': 'Green Mountain West Ridge',
+          'star_votes': 32,
+          'stars': 4.1,
+          'summary': 'The easiest route to the spectacular summit of Green Mountain.',
+          'trail_url': 'https://www.hikingproject.com/trail/7004594/green-mountain-west-ridge',
+        },
+        {
+          'condition': 'All Clear',
+          'condition_date': '2020-11-07',
+          'condition_time': '11:03:26',
+          'length': 11.1,
+          'location': 'Superior, Colorado',
+          'name': 'Marshall Mesa to Spring Brook Loop',
+          'star_votes': 26,
+          'stars': 4.3,
+          'summary': 'Some of the best trails that Boulder has to offer with a variety of options that never get old.',
+          'trail_url': 'https://www.hikingproject.com/trail/7017569/marshall-mesa-to-spring-brook-loop',
+        },
+      ];
+      const result = mungedTrails(trails);
+      expect(result).toEqual(expectation);
+    });
+
+    test('returns munged yelp test', async() => {
+      const expectation = [
+        {
+          'image_url': 'https://s3-media3.fl.yelpcdn.com/bphoto/9m-lciDcKbAOAvhh0uWAvw/o.jpg',
+          'name': 'Luc Lac',
+          'price': '$$',
+          'rating': 4,
+          'url': 'https://www.yelp.com/biz/luc-lac-portland-7?adjust_creative=DnJ3-HKKi6PqWA78lrKWsg&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=DnJ3-HKKi6PqWA78lrKWsg',
+        },
+        {
+          'image_url': 'https://s3-media2.fl.yelpcdn.com/bphoto/jAH0XyZe5N8YTrOy71SuJg/o.jpg',
+          'name': 'Q Restaurant & Bar',
+          'price': '$$',
+          'rating': 4.5,
+          'url': 'https://www.yelp.com/biz/q-restaurant-and-bar-portland?adjust_creative=DnJ3-HKKi6PqWA78lrKWsg&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=DnJ3-HKKi6PqWA78lrKWsg',
+        },
+        {
+          'image_url': 'https://s3-media1.fl.yelpcdn.com/bphoto/r6y-0Q2z3cnx1bQKxn-iHw/o.jpg',
+          'name': 'Salt & Straw',
+          'price': '$$',
+          'rating': 4.5,
+          'url': 'https://www.yelp.com/biz/salt-and-straw-portland-2?adjust_creative=DnJ3-HKKi6PqWA78lrKWsg&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=DnJ3-HKKi6PqWA78lrKWsg',
+        },
+        {
+          'image_url': 'https://s3-media1.fl.yelpcdn.com/bphoto/Ij9yv97Ch6NwKhNdpezRhw/o.jpg',
+          'name': 'Andina Restaurant',
+          'price': '$$$',
+          'rating': 4.5,
+          'url': 'https://www.yelp.com/biz/andina-restaurant-portland?adjust_creative=DnJ3-HKKi6PqWA78lrKWsg&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=DnJ3-HKKi6PqWA78lrKWsg',
+        },
+        {
+          'image_url': 'https://s3-media4.fl.yelpcdn.com/bphoto/qHrzQy5ih2Sjhn7MdsCASw/o.jpg',
+          'name': 'Voodoo Doughnut - Old Town',
+          'price': '$',
+          'rating': 3.5,
+          'url': 'https://www.yelp.com/biz/voodoo-doughnut-old-town-portland-2?adjust_creative=DnJ3-HKKi6PqWA78lrKWsg&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=DnJ3-HKKi6PqWA78lrKWsg',
+        },
+        {
+          'image_url': 'https://s3-media4.fl.yelpcdn.com/bphoto/wxLJSjqdB0v3wZSRqyNweg/o.jpg',
+          'name': 'Lechon',
+          'price': '$$',
+          'rating': 4.5,
+          'url': 'https://www.yelp.com/biz/lechon-portland?adjust_creative=DnJ3-HKKi6PqWA78lrKWsg&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=DnJ3-HKKi6PqWA78lrKWsg',
+        },
+        {
+          'image_url': 'https://s3-media1.fl.yelpcdn.com/bphoto/a-Av4dG6Xv3f1_XysFj4ow/o.jpg',
+          'name': 'Deschutes Brewery Portland Public House',
+          'price': '$$',
+          'rating': 4,
+          'url': 'https://www.yelp.com/biz/deschutes-brewery-portland-public-house-portland?adjust_creative=DnJ3-HKKi6PqWA78lrKWsg&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=DnJ3-HKKi6PqWA78lrKWsg',
+        },
+        {
+          'image_url': 'https://s3-media4.fl.yelpcdn.com/bphoto/w1tcp-5xJyQz19HH05JoVA/o.jpg',
+          'name': 'Cheryl’s on 12th',
+          'price': '$$',
+          'rating': 4.5,
+          'url': 'https://www.yelp.com/biz/cheryl-s-on-12th-portland?adjust_creative=DnJ3-HKKi6PqWA78lrKWsg&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=DnJ3-HKKi6PqWA78lrKWsg',
+        },
+        {
+          'image_url': 'https://s3-media4.fl.yelpcdn.com/bphoto/pamrPZVIJuIhiRhOSZMH6g/o.jpg',
+          'name': 'Portland City Grill',
+          'price': '$$$',
+          'rating': 4,
+          'url': 'https://www.yelp.com/biz/portland-city-grill-portland?adjust_creative=DnJ3-HKKi6PqWA78lrKWsg&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=DnJ3-HKKi6PqWA78lrKWsg',
+        },
+        {
+          'image_url': 'https://s3-media3.fl.yelpcdn.com/bphoto/N3jikH121fU9w6OmM-0JPA/o.jpg',
+          'name': 'Fogo de Chao Brazilian Steakhouse',
+          'price': '$$$',
+          'rating': 4,
+          'url': 'https://www.yelp.com/biz/fogo-de-chao-brazilian-steakhouse-portland-6?adjust_creative=DnJ3-HKKi6PqWA78lrKWsg&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=DnJ3-HKKi6PqWA78lrKWsg',
+        },
+        {
+          'image_url': 'https://s3-media3.fl.yelpcdn.com/bphoto/jtp9n8HTjid4lEeXlcKKiA/o.jpg',
+          'name': 'Nong\'s Khao Man Gai',
+          'price': '$$',
+          'rating': 4.5,
+          'url': 'https://www.yelp.com/biz/nongs-khao-man-gai-portland-2?adjust_creative=DnJ3-HKKi6PqWA78lrKWsg&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=DnJ3-HKKi6PqWA78lrKWsg',
+        },
+        {
+          'image_url': 'https://s3-media3.fl.yelpcdn.com/bphoto/yLQipYkFI3RiRbiDzkR3nA/o.jpg',
+          'name': 'Pine State Biscuits',
+          'price': '$',
+          'rating': 4.5,
+          'url': 'https://www.yelp.com/biz/pine-state-biscuits-portland-4?adjust_creative=DnJ3-HKKi6PqWA78lrKWsg&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=DnJ3-HKKi6PqWA78lrKWsg',
+        },
+        {
+          'image_url': 'https://s3-media1.fl.yelpcdn.com/bphoto/zloG1rU5-15Q4MVmf8inbA/o.jpg',
+          'name': 'Grassa',
+          'price': '$$',
+          'rating': 4,
+          'url': 'https://www.yelp.com/biz/grassa-portland?adjust_creative=DnJ3-HKKi6PqWA78lrKWsg&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=DnJ3-HKKi6PqWA78lrKWsg',
+        },
+        {
+          'image_url': 'https://s3-media2.fl.yelpcdn.com/bphoto/ARlFgwCNq62izXYf1TUQiA/o.jpg',
+          'name': 'Le Pigeon',
+          'price': '$$$',
+          'rating': 4.5,
+          'url': 'https://www.yelp.com/biz/le-pigeon-portland-2?adjust_creative=DnJ3-HKKi6PqWA78lrKWsg&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=DnJ3-HKKi6PqWA78lrKWsg',
+        },
+        {
+          'image_url': 'https://s3-media2.fl.yelpcdn.com/bphoto/Zetji_yDJJDG8eksunYiTg/o.jpg',
+          'name': 'Cuon - Vietnamese Street Food',
+          'price': '$$',
+          'rating': 4.5,
+          'url': 'https://www.yelp.com/biz/cuon-vietnamese-street-food-portland-3?adjust_creative=DnJ3-HKKi6PqWA78lrKWsg&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=DnJ3-HKKi6PqWA78lrKWsg',
+        },
+        {
+          'image_url': 'https://s3-media4.fl.yelpcdn.com/bphoto/w8w2mkIrowArbwpzIInq9g/o.jpg',
+          'name': 'Olympia Provisions',
+          'price': '$$',
+          'rating': 4.5,
+          'url': 'https://www.yelp.com/biz/olympia-provisions-portland-2?adjust_creative=DnJ3-HKKi6PqWA78lrKWsg&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=DnJ3-HKKi6PqWA78lrKWsg',
+        },
+        {
+          'image_url': 'https://s3-media3.fl.yelpcdn.com/bphoto/dmO50w1y9su1AqvBGj8-Yw/o.jpg',
+          'name': 'Coava Coffee Roasters',
+          'price': '$',
+          'rating': 4.5,
+          'url': 'https://www.yelp.com/biz/coava-coffee-roasters-portland?adjust_creative=DnJ3-HKKi6PqWA78lrKWsg&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=DnJ3-HKKi6PqWA78lrKWsg',
+        },
+        {
+          'image_url': 'https://s3-media1.fl.yelpcdn.com/bphoto/ARbosTGRwJvCdzux5IHgCQ/o.jpg',
+          'name': 'Lardo',
+          'price': '$$',
+          'rating': 4,
+          'url': 'https://www.yelp.com/biz/lardo-portland?adjust_creative=DnJ3-HKKi6PqWA78lrKWsg&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=DnJ3-HKKi6PqWA78lrKWsg',
+        },
+        {
+          'image_url': 'https://s3-media4.fl.yelpcdn.com/bphoto/Q1O8LFsMUwrOalYacRrh7Q/o.jpg',
+          'name': 'Southpark Seafood',
+          'price': '$$',
+          'rating': 4,
+          'url': 'https://www.yelp.com/biz/southpark-seafood-portland?adjust_creative=DnJ3-HKKi6PqWA78lrKWsg&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=DnJ3-HKKi6PqWA78lrKWsg',
+        },
+        {
+          'image_url': 'https://s3-media3.fl.yelpcdn.com/bphoto/b0E-cDYYiWuvBxFH-YPONA/o.jpg',
+          'name': 'Lardo',
+          'price': '$$',
+          'rating': 4,
+          'url': 'https://www.yelp.com/biz/lardo-portland-4?adjust_creative=DnJ3-HKKi6PqWA78lrKWsg&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=DnJ3-HKKi6PqWA78lrKWsg',
+        }
+      ];
+
+      const result = mungedReviews(rawYelpData);
       expect(result).toEqual(expectation);
     });
 
